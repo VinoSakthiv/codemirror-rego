@@ -28,7 +28,7 @@
     "build-editor": "cd hack && webpack --config webpack.config.js",
     "capabilities": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/open-policy-agent/opa/main/capabilities.json' -OutFile './builtins.json'; cat ./builtins.json | jq '{builtins:[.builtins[].name]}' > ./capabilities.json\"",
     "lint": "cd scripts && node lint ../src",
-    "prepare": "npm run capabilities && npm run build && sort-package-json",
+    "prepare": "npm run capabilities && npm run build  && sort-package-json && node ./RegalLinter/server.js",
     "sort-package-json": "sort-package-json"
   },
   "babel": {
@@ -37,7 +37,9 @@
     ]
   },
   "dependencies": {
-    "codemirror": "^5.65.18"
+    "codemirror": "^5.65.18",
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
