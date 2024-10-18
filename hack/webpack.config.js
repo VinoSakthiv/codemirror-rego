@@ -1,7 +1,7 @@
 module.exports = {
-    mode: 'development',
-    entry: './src/index.js',
-    output: {
-        filename: 'codemirror.js',
-    }
+  mode: 'development',
+  entry: './src/index.js',
+  output: {
+    filename: 'codemirror.js',
+  }
 }

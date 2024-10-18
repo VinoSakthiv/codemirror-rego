@@ -15,6 +15,7 @@
   "repository": "https://github.com/styrainc/codemirror-rego",
   "license": "Apache-2.0",
   "author": "Styra Inc.",
+  "main": "dist/codemirror-rego.js",
   "files": [
     "capabilities.json",
     "key-map.js",
@@ -22,18 +23,21 @@
     "README.md",
     "LICENSE"
   ],
-  "main": "dist/codemirror-rego.js",
   "scripts": {
     "build": "babel src --out-dir .",
-    "capabilities": "./scripts/capabilities > ./capabilities.json",
-    "lint": "./scripts/lint src scripts/lint",
-    "prepare": "npm run capabilities && npm run lint && npm run build && sort-package-json",
+    "build-editor": "cd hack && webpack --config webpack.config.js",
+    "capabilities": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/open-policy-agent/opa/main/capabilities.json' -OutFile './builtins.json'; cat ./builtins.json | jq '{builtins:[.builtins[].name]}' > ./capabilities.json\"",
+    "lint": "cd scripts && node lint ../src",
+    "prepare": "npm run capabilities && npm run build && sort-package-json",
     "sort-package-json": "sort-package-json"
   },
   "babel": {
     "presets": [
       "@babel/preset-env"
     ]
+  },
+  "dependencies": {
+    "codemirror": "^5.65.18"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
@@ -44,9 +48,9 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-sort-imports-es6-autofix": "^0.4.0",
     "eslint-plugin-sort-requires": "^2.1.0",
-    "sort-package-json": "^1.22.1"
-  },
-  "peerDependencies": {
-    "codemirror": "^5.48.0"
+    "json-loader": "^0.5.7",
+    "sort-package-json": "^1.22.1",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4"
   }
 }

@@ -1,10 +1,11 @@
 const CodeMirror = require('codemirror')
 
-const {builtins} = require('./capabilities.json')
+ const capabilities = require('./capabilities.json')
 
 CodeMirror.defineMode('rego', (editorOptions, modeOptions) => {
-  const BUILTIN_REFERENCES_RE = new RegExp('\\b(?:' + builtins.filter((c) => c.includes('.')).join('|') + ')\\b')
-  const BUILTINS_RE = new RegExp('\\b(?:' + builtins.filter((c) => !c.includes('.')).join('|') + ')\\b')
+  console.log('builtins:', capabilities.builtins);
+  const BUILTIN_REFERENCES_RE = new RegExp('\\b(?:' + capabilities.builtins.filter((c) => c.includes('.')).join('|') + ')\\b')
+  const BUILTINS_RE = new RegExp('\\b(?:' + capabilities.builtins.filter((c) => !c.includes('.')).join('|') + ')\\b')
   const IDENTIFIER_RE = /^[A-Za-z_][A-Za-z_0-9]*/
   const KEYWORDS_RE = /\b(?:as|default|else|import|not|with|some|in|every|if|contains)\b/
   const NUMBER_RE = /^-?(?:(?:(?:0(?!\d+)|[1-9][0-9]*)(?:\.[0-9]+)?)|(?:\.[0-9]+))(?:[eE][-+]?[0-9]+)?/
